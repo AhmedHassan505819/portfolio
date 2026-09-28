@@ -61,8 +61,8 @@ nav{display:flex;justify-content:space-between;align-items:center;padding:24px 0
 .grid{display:grid;grid-template-columns:repeat(6,1fr);gap:16px}
 .tile{position:relative;grid-column:span 3;min-height:300px;border-radius:22px;padding:22px;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;transition:transform .25s ease}
 .tile:hover{transform:translateY(-5px)}
-.tile.wide{grid-column:span 4}.tile.slim{grid-column:span 2}
-.t1{background:linear-gradient(150deg,#ff7a3d,#e63a08)}.t2{background:#1f3fd6}.t3{background:#111;color:#fff}.t4{background:#f4f1ee;color:#111}.t5{background:linear-gradient(150deg,#7a4dff,#3b12c9)}.t6{background:#1db954;color:#0a0a0a}
+.tile.full{grid-column:span 6;min-height:340px}.tile.wide{grid-column:span 4}.tile.slim{grid-column:span 2}
+.t0{background:linear-gradient(135deg,#0b1533,#1b2a80 55%,#4a1f9c)}.t1{background:linear-gradient(150deg,#ff7a3d,#e63a08)}.t2{background:#1f3fd6}.t3{background:#111;color:#fff}.t4{background:#f4f1ee;color:#111}.t5{background:linear-gradient(150deg,#7a4dff,#3b12c9)}.t6{background:#1db954;color:#0a0a0a}
 .tile{color:#fff}.t4{color:#111}
 .num{position:absolute;right:-8px;top:-14px;font-family:'Anton',sans-serif;font-size:9rem;line-height:1;opacity:.16;pointer-events:none}
 .tile-top{display:flex;justify-content:space-between;align-items:flex-start;position:relative}
@@ -151,41 +151,46 @@ nav{position:relative;z-index:5}
   </div>
 
   <div class="stats">
-    <div class="stat"><div class="disp">06</div><span>Projects shipped</span></div>
+    <div class="stat"><div class="disp">07</div><span>Projects shipped</span></div>
     <div class="stat"><div class="disp">05</div><span>Client sites</span></div>
-    <div class="stat"><div class="disp">01</div><span>Personal build</span></div>
+    <div class="stat"><div class="disp">02</div><span>Personal builds</span></div>
   </div>
 
   <section id="work">
     <div class="sec-head"><div class="ghost" aria-hidden="true">Portfolio</div><div class="label">SELECTED WORK</div></div>
     <div class="grid">
-      <a class="tile wide t1" href="https://atifdental.com" target="_blank" rel="noopener">
+      <a class="tile full t0" href="https://customercarebot-livid.vercel.app/" target="_blank" rel="noopener noreferrer">
         <span class="num">01</span>
+        <div class="tile-top"><span class="chip">PERSONAL · FUN PROJECT</span><span class="arrow">↗</span></div>
+        <div><h3 class="disp">ServeBot AI</h3><p>An AI customer support bot for an online store. It checks live stock, places orders and pulls up past orders in plain conversation, with an admin dashboard for sales analytics and inventory. Built with a friend, Usman, who did the UI.</p><div class="tags"><span>Gemini AI</span><span>Node.js</span><span>Express</span><span>MongoDB</span></div></div>
+      </a>
+      <a class="tile wide t1" href="https://atifdental.com" target="_blank" rel="noopener">
+        <span class="num">02</span>
         <div class="tile-top"><span class="chip">HEALTHCARE</span><span class="arrow">↗</span></div>
         <div><h3 class="disp">Atif Dental</h3><p>A dental practice website built and delivered from the ground up, from design to launch.</p><div class="tags"><span>Web Design</span><span>Launch</span></div></div>
       </a>
       <a class="tile slim t2" href="https://alshafiyah.com/" target="_blank" rel="noopener">
-        <span class="num">02</span>
+        <span class="num">03</span>
         <div class="tile-top"><span class="chip">BUSINESS SITE</span><span class="arrow">↗</span></div>
         <div><h3 class="disp">Alshafiyah</h3><p>Full business website: structure, content and deployment.</p></div>
       </a>
       <a class="tile slim t3" href="https://wearetaxrevolution.com" target="_blank" rel="noopener">
-        <span class="num">03</span>
+        <span class="num">04</span>
         <div class="tile-top"><span class="chip">FINANCE</span><span class="arrow">↗</span></div>
         <div><h3 class="disp">We Are Tax Revolution</h3><p>A tax services business brought online, layout to launch.</p></div>
       </a>
       <a class="tile wide t4" href="https://wearelegalrevolution.com" target="_blank" rel="noopener">
-        <span class="num">04</span>
+        <span class="num">05</span>
         <div class="tile-top"><span class="chip" style="background:#111;color:#fff">LEGAL</span><span class="arrow" style="background:#111;color:#fff">↗</span></div>
         <div><h3 class="disp">We Are Legal Revolution</h3><p>A companion site to Tax Revolution, built for a legal services brand.</p><div class="tags"><span>Web Design</span><span>Brand site</span></div></div>
       </a>
       <a class="tile t5" href="https://rankbase.com.yardsignsva.com/#" target="_blank" rel="noopener">
-        <span class="num">05</span>
+        <span class="num">06</span>
         <div class="tile-top"><span class="chip">SEO</span><span class="arrow">↗</span></div>
         <div><h3 class="disp">RankBase</h3><p>Built for a lead, focused on local visibility and search ranking.</p></div>
       </a>
       <a class="tile t6" href="https://spotify-dun-seven.vercel.app/" target="_blank" rel="noopener">
-        <span class="num">06</span>
+        <span class="num">07</span>
         <div class="tile-top"><span class="chip">PERSONAL BUILD</span><span class="arrow">↗</span></div>
         <div><h3 class="disp">Spotify Clone</h3><p>The Spotify web player rebuilt in React to sharpen frontend skills.</p><div class="tags"><span>React</span></div></div>
       </a>
