@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@400;500;600;700&family=Mrs+Saint+Delafield&display=swap" rel="stylesheet">
+<script src="https://cdn.mxpnl.com/libs/mixpanel-2-latest.min.js"></script>
 <style>
 :root{--bg:#080b10;--ink:#f4f4f2;--card:#0f141b;--grey:#9aa4b2;--line:rgba(255,255,255,.14);--orange:#ff5a14;--violet:#5a3cff;--ghost:rgba(255,255,255,.17);
 box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
@@ -241,5 +242,181 @@ function step(){
 start();
 })();
 </script>
+<script>
+// ── Init ────────────────────────────────────────────────
+mixpanel.init('cf475910feecf4d03c5b3a3afd67b53e', { debug: true });
+
+// Helper: get referrer source
+function getRef() {
+  return document.referrer ? new URL(document.referrer).hostname : 'direct';
+}
+function getUtm(p) {
+  return new URLSearchParams(window.location.search).get(p) || 'none';
+}
+
+// ── 1. Page Viewed ──────────────────────────────────────
+mixpanel.track('page_viewed', {
+  page_type: 'home',
+  route_path: window.location.pathname,
+  referrer_source: getRef(),
+  campaign: getUtm('utm_campaign')
+});
+
+// ── 2. All 7 Project Tiles ──────────────────────────────
+var tiles = [
+  { id: 'servebot-ai',            el: document.querySelector('.tile.full.t0') },
+  { id: 'atif-dental',            el: document.querySelector('.tile.wide.t1') },
+  { id: 'alshafiyah',             el: document.querySelector('.tile.slim.t2') },
+  { id: 'we-are-tax-revolution',  el: document.querySelector('.tile.slim.t3') },
+  { id: 'we-are-legal-revolution',el: document.querySelector('.tile.wide.t4') },
+  { id: 'rankbase',               el: document.querySelector('.tile.t5')      },
+  { id: 'spotify-clone',          el: document.querySelector('.tile.t6')      }
+];
+
+tiles.forEach(function(p, i) {
+  if (!p.el) return;
+  p.el.addEventListener('click', function() {
+    mixpanel.track('project_clicked_from_list', {
+      project_id: p.id,
+      project_position_in_list: i + 1,
+      list_sort_order: 'featured',
+      referrer_source: getRef()
+    });
+  });
+});
+
+// ── 3. Projects Section Visible (fires once on scroll) ──
+var workSection = document.getElementById('work');
+if (workSection && 'IntersectionObserver' in window) {
+  var obs = new IntersectionObserver(function(entries) {
+    if (entries[0].isIntersecting) {
+      mixpanel.track('projects_list_viewed', {
+        projects_count_visible: 7,
+        layout_variant: 'css_grid',
+        referrer_source: getRef()
+      });
+      obs.disconnect();
+    }
+  }, { threshold: 0.2 });
+  obs.observe(workSection);
+}
+
+// ── 4. "See the work →" hero CTA ────────────────────────
+var seeWork = document.querySelector('.card a[href="#work"]');
+if (seeWork) {
+  seeWork.addEventListener('click', function() {
+    mixpanel.track('contact_cta_clicked', {
+      cta_location: 'hero_card',
+      source_page_type: 'home',
+      referrer_source: getRef(),
+      project_id: 'none'
+    });
+  });
+}
+
+// ── 5. Nav: Email button ─────────────────────────────────
+var navEmail = document.querySelector('.nav-actions a[href*="mail.google"]');
+if (navEmail) {
+  navEmail.addEventListener('click', function() {
+    mixpanel.track('contact_cta_clicked', {
+      cta_location: 'nav',
+      source_page_type: 'home',
+      referrer_source: getRef(),
+      project_id: 'none'
+    });
+    mixpanel.track('email_contact_clicked', {
+      contact_action: 'mailto_click',
+      destination_domain: 'gmail.com',
+      source_page_type: 'nav',
+      project_id: 'none'
+    });
+  });
+}
+
+// ── 6. Nav: GitHub & LinkedIn ────────────────────────────
+var navGH = document.querySelector('.nav-actions a[href*="github"]');
+if (navGH) {
+  navGH.addEventListener('click', function() {
+    mixpanel.track('email_contact_clicked', {
+      contact_action: 'external_link',
+      destination_domain: 'github.com',
+      source_page_type: 'nav',
+      project_id: 'none'
+    });
+  });
+}
+
+var navLI = document.querySelector('.nav-actions a[href*="linkedin"]');
+if (navLI) {
+  navLI.addEventListener('click', function() {
+    mixpanel.track('email_contact_clicked', {
+      contact_action: 'external_link',
+      destination_domain: 'linkedin.com',
+      source_page_type: 'nav',
+      project_id: 'none'
+    });
+  });
+}
+
+// ── 7. Footer: Email button ──────────────────────────────
+var footEmail = document.querySelector('.foot-actions a[href*="mail.google"]');
+if (footEmail) {
+  footEmail.addEventListener('click', function() {
+    mixpanel.track('contact_cta_clicked', {
+      cta_location: 'footer',
+      source_page_type: 'home',
+      referrer_source: getRef(),
+      project_id: 'none'
+    });
+    mixpanel.track('email_contact_clicked', {
+      contact_action: 'mailto_click',
+      destination_domain: 'gmail.com',
+      source_page_type: 'footer',
+      project_id: 'none'
+    });
+  });
+}
+
+// ── 8. Footer: GitHub & LinkedIn ────────────────────────
+var footGH = document.querySelector('.foot-actions a[href*="github"]');
+if (footGH) {
+  footGH.addEventListener('click', function() {
+    mixpanel.track('email_contact_clicked', {
+      contact_action: 'external_link',
+      destination_domain: 'github.com',
+      source_page_type: 'footer',
+      project_id: 'none'
+    });
+  });
+}
+
+var footLI = document.querySelector('.foot-actions a[href*="linkedin"]');
+if (footLI) {
+  footLI.addEventListener('click', function() {
+    mixpanel.track('email_contact_clicked', {
+      contact_action: 'external_link',
+      destination_domain: 'linkedin.com',
+      source_page_type: 'footer',
+      project_id: 'none'
+    });
+  });
+}
+
+// ── 9. Skills Accordion opens ────────────────────────────
+document.querySelectorAll('.acc details').forEach(function(detail) {
+  detail.addEventListener('toggle', function() {
+    if (detail.open) {
+      var label = detail.querySelector('summary');
+      mixpanel.track('project_section_exposed', {
+        project_id: 'skills',
+        section_name: label ? label.textContent.trim().toLowerCase().replace(/\s+/g, '_') : 'unknown',
+        exposed_ratio: 1,
+        time_on_project_sec: Math.round(performance.now() / 1000)
+      });
+    }
+  });
+});
+</script>
+
 </body>
 </html>
